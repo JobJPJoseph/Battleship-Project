@@ -5,7 +5,7 @@ class Player {
 
     async getCoordinate(availablePositions) {
 
-        const rl = readline.createInterface({
+        const rl = this.readline.createInterface({
             input: process.stdin,
             output: process.stdout
         });
@@ -71,20 +71,4 @@ class Player {
     }
 }
 
-const readline = require('readline');
-
-const player = new Player(readline);
-
-const allCoordinates = [
-    [0, 0], [0, 1], [0, 2],
-    [1, 0], [1, 1], [1, 2],
-    [2, 0], [2, 1], [2, 2]
-];
-
-async function run() {
-    const result = await player.getCoordinate(allCoordinates);
-    console.log(result);
-}
-
-run();
 module.exports = Player;
