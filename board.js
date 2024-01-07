@@ -141,6 +141,10 @@ class Board extends Users {
         return formatGrid;
     }
 
+    gameState() {
+
+    }
+
 }
 
 const board = new Board(9);

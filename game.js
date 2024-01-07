@@ -1,3 +1,4 @@
+const Board = require('./board');
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -29,10 +30,9 @@ async function start() {
 
 async function run() {
     const size = await start();
-    console.log(size);
+    return size;
 }
 
 run();
-// const Board = require('./board');
 
-// const board = new Board();
+const board = new Board(run());

@@ -7,8 +7,9 @@ that isnt the goal to make a perfect working code.
 
 Things to implement:
     Inheritance: Done
-    Binding (context)
+    Binding (context):
     Asychronousity (Promises/asyce-await): Done
     Error Handling: Done
-    NPM Packages (Mocha/Chai)
+    NPM Packages (Mocha/Chai):
     Class instances: Done
+    Single Responsibiity Principle:
