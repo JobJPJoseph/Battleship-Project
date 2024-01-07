@@ -11,5 +11,5 @@ Things to implement:
     Asychronousity (Promises/asyce-await): Done
     Error Handling: Done
     NPM Packages (Mocha/Chai):
-    Class instances: Done
-    Single Responsibiity Principle:
+    Class instances:
+    Single Responsibiity Principle: Done
