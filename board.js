@@ -1,4 +1,3 @@
-const { get } = require('http');
 const Users = require('./user');
 
 class Board extends Users {
@@ -23,7 +22,7 @@ class Board extends Users {
     static GRID = [];
 
     // Fill the class grid
-    static fillClassGrid(n) {
+    static fillActualGrid(n) {
 
         for (let i = 0; i < n; i++) {
             const row = [];
@@ -97,7 +96,7 @@ class Board extends Users {
         return Board.GRID[position[0]][position[1]];
     }
 
-    static availableCoordinates(promptedGrid) {
+    static availableCoordinates(actualGrid) {
         /*
             We will be refering to Board.GRID not board.grid
             We will be return the value at said position.
@@ -105,11 +104,11 @@ class Board extends Users {
 
         const availablePositions = [];
 
-        for (let row = 0; row < promptedGrid.length; row++) {
+        for (let row = 0; row < actualGrid.length; row++) {
 
-            for (let column = 0; column < promptedGrid[0].length; column++) {
+            for (let column = 0; column < actualGrid[0].length; column++) {
 
-                if (this.getPosition([row, column]) === "N") {
+                if ((this.getPosition([row, column]) === "N") || (this.getPosition([row, column]) === "S")) {
                     availablePositions.push([row, column]);
                 }
 
@@ -118,6 +117,20 @@ class Board extends Users {
         }
 
         return availablePositions;
+    }
+
+    static countOfShips() {
+        let initial = 0;
+        const twoDArray = this.flatten();
+        twoDArray.reduce((accum, elem) => {
+            if (elem === "S") initial++;
+        }, initial);
+
+        return initial
+    }
+
+    static flatten() {
+        return Board.GRID.reduce((flatArray, subArray) => flatArray.concat(subArray, []));
     }
 
     static printGrid(grid) {
@@ -129,10 +142,27 @@ class Board extends Users {
     }
 
 }
-const board = new Board(9);
-Board.fillClassGrid(board.width);
-Board.fillBoard(Board.GRID);
-console.log(Board.printGrid(board.grid));
-console.log(Board.printGrid(Board.GRID));
 
+const board = new Board(9);
+Board.fillActualGrid(board.width);
+
+console.log(Board.printGrid(Board.GRID));
+console.log("=================================");
+
+console.log(Board.availableCoordinates(Board.GRID));
+console.log(Board.getPosition([0, 0]));
+console.log(Board.setPosition([0, 0], "H", Board.GRID))
+
+console.log(Board.printGrid(Board.GRID));
+console.log("=================================");
+console.log(Board.availableCoordinates(Board.GRID));
+
+console.log(Board.enemyShips(Board.GRID));
+
+console.log(Board.printGrid(Board.GRID));
+console.log("=================================");
+console.log(Board.availableCoordinates(Board.GRID));
+
+console.log(Board.flatten());
+console.log(Board.countOfShips());
 module.exports = Board;
