@@ -1,25 +1,23 @@
 const Board = require('./board');
-const readline = require('readline');
+const rl = require('./inputHelper');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+async function askBoardSize() {
 
-async function start() {
-    return new Promise((resolve) => {
+
+    return await new Promise((resolve) => {
         const askSize = () => {
             rl.question("Enter your size of the board: ", (input) => {
                 try {
                     if (Number.isInteger(Number(input))) {
-                        rl.close();
+                        // rl.close();
                         resolve(input);
                     } else {
                         throw new Error();
                     }
                 } catch(error) {
-                    console.error('The size input must be a number');
+                    console.error('Invalid input: Please enter a positive integer.');
                     askSize();
+                    // rl.close()
                 }
             });
         }
@@ -29,10 +27,23 @@ async function start() {
 }
 
 async function run() {
-    const size = await start();
+    const size = await askBoardSize();
+    console.log(size);
     return size;
 }
 
-run();
+async function startGame() {
+    try {
+        console.log(true, 1);
+        const num = await run();
+        console.log(true, 2);
+        console.log(num);
+        const board = new Board(num);
+        console.log(true, 3) // not being reached
+        await board.gameState();
+    } catch(error) {
+        console.error('An error occurred during game setup:', error);
+    }
+}
 
-const board = new Board(run());
+startGame();

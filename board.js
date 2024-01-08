@@ -6,19 +6,8 @@ class Board extends Users {
         this.width = n;
         this.size = (this.width * this.width);
         this.promptedGrid = this.fillGrid();
-        this.actualGrid = this.actualGrid();
+        this.actualGrid = this.fillGrid();
         this.fillActualGrid();
-        // Fill the grid instance
-        // for (let i = 0; i < this.width; i++) {
-        //     const row = [];
-
-        //     for (let i = 0; i < this.width; i++) {
-        //         row.push("N");
-        //     }
-
-        //     this.grid.push(row);
-        // }
-
     }
 
     fillGrid() {
@@ -30,44 +19,12 @@ class Board extends Users {
 
         return grid;
     }
-    // static GRID = [];
-
-    // Fill the class grid
-    // static fillActualGrid(n) {
-
-    //     for (let i = 0; i < n; i++) {
-    //         const row = [];
-
-    //         for (let i = 0; i < n; i++) {
-    //             row.push("N");
-    //         }
-
-    //         Board.GRID.push(row);
-    //     }
-
-    //     return true;
-    // }
 
     fillActualGrid() {
         const numberOfShips = Math.floor(this.size * 0.25);
         this.placeEnemyShips(numberOfShips, this.actualGrid)
     }
 
-    // static enemyShips(grid) {
-    //     // We changed to static
-    //     // Find the the amount that 25% equates to
-    //     let numberOfShips = this.twentyFivePercent(grid);
-    //     // Now we need to get a random number for row and column
-    //     return this.placeEnemyShips(numberOfShips, grid);
-    // }
-
-    // static twentyFivePercent(grid) {
-    //     const gridLength = grid[0].length;
-    //     const gridWidth = grid[0].length;
-    //     const size = (gridLength * gridWidth);
-
-    //     return Math.floor(size * 0.25);
-    // }
 
     placeEnemyShips(numberOfShips, grid) {
 
@@ -84,6 +41,7 @@ class Board extends Users {
     }
 
     attackPlayer(coordinates, promptedGrid, actualGrid) {
+
         /* The goal here is to test the coordinates against the actualGrid
                 if true, that we hit a ship:
                     we would change said position inside of actualGrid and prompted to "H"
@@ -115,8 +73,8 @@ class Board extends Users {
     availableCoordinates() {
         const availablePositions = [];
 
-        for (let row = 0; row < this.grid.length; row++) {
-            for (let column = 0; column < this.grid[0].length; column++) {
+        for (let row = 0; row < this.actualGrid.length; row++) {
+            for (let column = 0; column < this.actualGrid[0].length; column++) {
                 const position = this.getPosition([row, column]);
                 if (position === "N" || position === "S") {
                     availablePositions.push([row, column]);
@@ -126,16 +84,6 @@ class Board extends Users {
 
         return availablePositions;
     }
-
-    // static countOfShips() {
-    //     let initial = 0;
-    //     const twoDArray = this.flatten();
-    //     twoDArray.reduce((accum, elem) => {
-    //         if (elem === "S") initial++;
-    //     }, initial);
-
-    //     return initial
-    // }
 
     countOfShips() {
         return this.flatten().filter((elem) => elem === "S").length; // interesting way to get the count of something
@@ -161,29 +109,41 @@ class Board extends Users {
         return this.printGrid(this.actualGrid);
     }
 
+    async gameState() {
+        console.log(this.printPromptedGrid());
+
+        while (this.countOfShips() > 0) {
+            /*
+            The first thing we are going to do is ask the player for the size of the board.
+                We will use that value to initialize the board class.
+            Next we will call board.gameState to run the game.
+
+            In board class:
+                We are going to call the gameState()
+                    We are first going to call for availableCoordinates() so that the players
+                    can choose what coordinates to attack.
+                        let input = await this.getInput(this.availableCoordinates());
+
+                    Now that we got an input from the player.
+                    We will call attackPlayer(coordinates, promptedGrid, actualGrid);
+                    This will test to see if we hit a ship or not and make adjustments.
+                        this.attackPlayer(input, this.promptedGrid, this.actualGrid);
+
+                    From here We can just print put the grid
+                        this.printPromptedGrid();
+            */
+
+            let input = await this.getInput(this.availableCoordinates());
+            this.attackPlayer(input, this.promptedGrid, this.actualGrid);
+            console.log(this.printPromptedGrid());
+        }
+
+        return true;
+    }
+
 }
 
-const board = new Board(9);
-Board.fillActualGrid(board.width);
-
-console.log(Board.printGrid(Board.GRID));
-console.log("=================================");
-
-console.log(Board.availableCoordinates(Board.GRID));
-console.log(Board.getPosition([0, 0]));
-console.log(Board.setPosition([0, 0], "H", Board.GRID))
-
-console.log(Board.printGrid(Board.GRID));
-console.log("=================================");
-console.log(Board.availableCoordinates(Board.GRID));
-
-console.log(Board.enemyShips(Board.GRID));
-
-console.log(Board.printGrid(Board.GRID));
-console.log("=================================");
-console.log(Board.availableCoordinates(Board.GRID));
-
-console.log(Board.flatten());
-console.log(Board.countOfShips());
+const board = new Board(8);
+board.gameState();
 
 module.exports = Board;
