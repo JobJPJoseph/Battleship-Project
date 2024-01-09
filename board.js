@@ -139,25 +139,15 @@ class Board extends Users {
                     From here We can just print put the grid
                         this.printPromptedGrid();
             */
-
+            console.log(this.printPromptedGrid());
             let input = await this.getInput(this.availableCoordinates());
             this.attackPlayer(input, this.promptedGrid, this.actualGrid);
-            console.log(this.printPromptedGrid());
+            console.clear();
         }
 
         return true;
     }
 
 }
-
-// const readline = require('readline');
-
-// const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout,
-// });
-
-// const board = new Board(8, rl);
-// board.gameState();
 
 module.exports = Board;

@@ -43,6 +43,7 @@ async function startGame() {
         const size = await askBoardSize();
         const board = new Board(size, rl);
         await board.gameState();
+        console.log('You Win!!!')
     } catch (error) {
         console.error('An error occurred during game setup:', error);
     } finally {
