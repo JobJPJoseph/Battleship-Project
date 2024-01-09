@@ -2,9 +2,8 @@ const Player = require('./player');
 // const CPU = require('./cpu');
 
 class Users {
-    constructor() {
-        // this.readline = require('readline');
-        this.player = new Player();
+    constructor(rl) {
+        this.player = new Player(rl);
         // this.cpu = new CPU(this.readline);
 
         // this.turn = [this.player, this.cpu];
@@ -20,9 +19,6 @@ class Users {
     }
 
     async getInput(availablePositions) {
-        // We this is called it will return the input
-        // each call will switch or rotate this.turn
-
         // const currentPlayer = this.currentTurn();
         // const input = await currentPlayer.getCoordinate(availablePositions);
         const input = await this.player.getCoordinate(availablePositions);

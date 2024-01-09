@@ -1,36 +1,33 @@
-const rl = require('./inputHelper');
-
 class Player {
-    constructor() {
-        // this.readline = readline;
+    constructor(rl) {
+        this.rl = rl;
     }
 
     async getCoordinate(availablePositions) {
 
-        // const rl = this.readline.createInterface({
-        //     input: process.stdin,
-        //     output: process.stdout
-        // });
-
         return await new Promise((resolve) => {
+
             const askCoordinate = () => {
-                rl.question('Enter a valid coordinate in this form: 0 0 ', (input) => {
+
+                this.rl.question('Enter a valid coordinate in this form: 0 0 ', (input) => {
                     const coordinate = this.formatCoordinates(input);
                     const isValid = this.validateCoordinates(availablePositions, coordinate);
 
                     try {
+
                         if(isValid) {
-                            // rl.close();
                             resolve(coordinate);
                         } else {
                             throw new Error();
                         }
+
                     } catch(error) {
                         console.error('Invalid Coordinate\nMust be in this form: 0 0 ');
                         askCoordinate();
                     }
 
                 });
+
             }
 
             askCoordinate();

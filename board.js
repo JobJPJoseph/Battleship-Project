@@ -1,8 +1,8 @@
 const Users = require('./user');
 
 class Board extends Users {
-    constructor(n) {
-        super();
+    constructor(n, rl) {
+        super(rl);
         this.width = n;
         this.size = (this.width * this.width);
         this.promptedGrid = this.fillGrid();
@@ -11,13 +11,19 @@ class Board extends Users {
     }
 
     fillGrid() {
-        const grid = [];
+        const arr = [];
+
         for (let i = 0; i < this.width; i++) {
-            const row = Array(this.width).fill("N");
-            grid.push(row);
+            const subArray = [];
+
+            for (let j = 0; j < this.width; j++) {
+                subArray.push("N");
+            }
+
+            arr.push(subArray);
         }
 
-        return grid;
+        return arr;
     }
 
     fillActualGrid() {
@@ -29,12 +35,14 @@ class Board extends Users {
     placeEnemyShips(numberOfShips, grid) {
 
         while(numberOfShips > 0) {
-            let row = Math.floor(Math.random() * grid[0].length);
+            let row = Math.floor(Math.random() * grid.length);
             let column = Math.floor(Math.random() * grid[0].length);
+
             if (grid[row][column] !== 'S') {
                 grid[row][column] = 'S';
                 numberOfShips--;
             }
+
         }
 
         return true;
@@ -110,7 +118,6 @@ class Board extends Users {
     }
 
     async gameState() {
-        console.log(this.printPromptedGrid());
 
         while (this.countOfShips() > 0) {
             /*
@@ -143,7 +150,14 @@ class Board extends Users {
 
 }
 
-const board = new Board(8);
-board.gameState();
+// const readline = require('readline');
+
+// const rl = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout,
+// });
+
+// const board = new Board(8, rl);
+// board.gameState();
 
 module.exports = Board;
