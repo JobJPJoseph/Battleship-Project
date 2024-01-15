@@ -1,0 +1,30 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "We will make a CLI version a battleship game. However, like the CLI `Tic-Tak-Toe Project`, we are going to further implement more of what we learned. In some cases it may not make sense to do so but that isnt the goal to make a perfect working code.",
+  "main": "board.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JobJPJoseph/Battleship-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JobJPJoseph/Battleship-Project/issues"
+  },
+  "homepage": "https://github.com/JobJPJoseph/Battleship-Project#readme",
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "sinon": "^17.0.1"
+  },
+  "dependencies": {
+    "chai": "^4.3.1"
+  }
+}
