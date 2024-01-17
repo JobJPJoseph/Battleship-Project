@@ -1,5 +1,5 @@
 class Player {
-    constructor(rl) {
+    constructor(rl = null) {
         this.rl = rl;
     }
 
