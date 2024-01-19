@@ -2,7 +2,7 @@ const Player = require('./player');
 // const CPU = require('./cpu');
 
 class Users {
-    constructor(rl) {
+    constructor(rl = null) {
         this.player = new Player(rl);
         // this.cpu = new CPU(this.readline);
 
