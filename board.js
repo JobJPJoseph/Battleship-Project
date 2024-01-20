@@ -1,7 +1,7 @@
 const Users = require('./user');
 
 class Board extends Users {
-    constructor(n, rl) {
+    constructor(n, rl = null) {
         super(rl);
         this.width = n;
         this.size = (this.width * this.width);
