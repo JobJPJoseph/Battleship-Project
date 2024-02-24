@@ -1,4 +1,4 @@
-class CPU {
+class ComputerPlayer {
     constructor() {}
 
     async getCoordinate(availablePositions) {
@@ -31,4 +31,4 @@ class CPU {
 
 // main();
 
-module.exports = CPU;
+module.exports = ComputerPlayer;

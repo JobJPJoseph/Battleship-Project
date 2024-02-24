@@ -1,55 +1,55 @@
-const Board = require('./board');
-const readline = require('readline');
+// const Board = require('./board');
+// const readline = require('readline');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
+// const rl = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout,
+// });
 
 
-async function askBoardSize() {
+// async function askBoardSize() {
 
-    return await new Promise((resolve) => {
+//     return await new Promise((resolve) => {
 
-        const askSize = () => {
+//         const askSize = () => {
 
-            rl.question("Enter your size of the board: ", (input) => {
+//             rl.question("Enter your size of the board: ", (input) => {
 
-                try {
+//                 try {
 
-                    if (Number.isInteger(Number(input))) {
-                        resolve(input);
-                    } else {
-                        throw new Error();
-                    }
+//                     if (Number.isInteger(Number(input))) {
+//                         resolve(input);
+//                     } else {
+//                         throw new Error();
+//                     }
 
-                } catch(error) {
-                    console.error('Invalid input: Please enter a positive integer.');
-                    askSize();
-                }
+//                 } catch(error) {
+//                     console.error('Invalid input: Please enter a positive integer.');
+//                     askSize();
+//                 }
 
-            });
+//             });
 
-        }
+//         }
 
-        askSize();
-    });
+//         askSize();
+//     });
 
-}
+// }
 
-async function startGame() {
+// async function startGame() {
 
-    try {
-        const size = await askBoardSize();
-        const board = new Board(size, rl);
-        await board.gameState();
-        console.log('You Win!!!')
-    } catch (error) {
-        console.error('An error occurred during game setup:', error);
-    } finally {
-        rl.close();
-    }
+//     try {
+//         const size = await askBoardSize();
+//         const board = new Board(size, rl);
+//         await board.gameState();
+//         console.log('You Win!!!')
+//     } catch (error) {
+//         console.error('An error occurred during game setup:', error);
+//     } finally {
+//         rl.close();
+//     }
 
-}
+// }
 
-startGame();
+// startGame();
