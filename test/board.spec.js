@@ -194,9 +194,99 @@ describe('Board', function () {
                 expect(board.promptedGrid[0].length).to.equal(9);
             });
 
+            it("should set each indices to the value 'N'", function () {
+                const grid = board.promptedGrid;
+
+                for (let i = 0; i < grid.length; i++) {
+                    const row = grid[i];
+
+                    expect(row.every((cell) => cell === "N")).to.equal(true);
+                }
+            });
+
         });
 
 
+    });
+
+    describe('availableCoordinates', function () {
+
+        it('should return an array of objects the contain a coordinate in the actualGrid: { row: 0, column: 0 }', function () {
+            const validValues = board.availableCoordinates(0, 3);
+            // row: 0-2 col: 0-8
+
+            const coordinate = [
+                { row: 0, column: 0},
+                { row: 0, column: 1},
+                { row: 0, column: 2},
+                { row: 0, column: 3},
+                { row: 0, column: 4},
+                { row: 0, column: 5},
+                { row: 0, column: 6},
+                { row: 0, column: 7},
+                { row: 0, column: 8},
+                { row: 1, column: 0},
+                { row: 1, column: 1},
+                { row: 1, column: 2},
+                { row: 1, column: 3},
+                { row: 1, column: 4},
+                { row: 1, column: 5},
+                { row: 1, column: 6},
+                { row: 1, column: 7},
+                { row: 1, column: 8},
+                { row: 2, column: 0},
+                { row: 2, column: 1},
+                { row: 2, column: 2},
+                { row: 2, column: 3},
+                { row: 2, column: 4},
+                { row: 2, column: 5},
+                { row: 2, column: 6},
+                { row: 2, column: 7},
+                { row: 2, column: 8},
+
+            ]
+
+            expect(validValues.length, `availableCoordinates must be a length of ${coordinate.length}`).to.equal(coordinate.length);
+
+            for (let i = 0; i < validValues.length; i++) {
+                const obj1 = validValues[i];
+                const obj2 = coordinate[i];
+
+                expect(obj1).to.deep.equal(obj2);
+            }
+
+        });
+
+    });
+
+    describe("FillShips", function () {
+
+        it('', function () {
+
+        });
+
+    });
+
+
+    describe('EnemyShips', function () {
+
+        context('Should cover from indices 0 to not including 3', function () {
+
+            it('should have a total of 10 enemy ships', function () {
+                const grid = board.actualGrid;
+                let count = 0;
+
+                for(let i = 0; i < 3; i++) {
+                    const row = grid[i];
+
+                    row.forEach(function (cell) {
+                        if (cell === 'S') count++;
+                    });
+                }
+
+                expect(count).to.equal(10);
+            });
+        });
     });
 
 });

@@ -15,10 +15,32 @@ class Board {
 
         for(let i = 0; i < n; i++) {
             this.actualGrid.push(new Array(n).fill(' '));
-            this.promptedGrid.push(new Array(n).fill(' '));
+            this.promptedGrid.push(new Array(n).fill('N'));
         }
 
     }
+
+    availableCoordinates(min, max) {
+        const grid = [];
+
+        for (let i = min; i < max; i++) {
+            const row = this.actualGrid[i];
+
+            for (let j = 0; j < row.length; j++) {
+                const cell = row[j];
+
+                if ((cell !== "S") || (cell !== "H" || cell !== "X")) grid.push( { row: i, column: j} )
+            }
+
+        }
+
+        return grid;
+    }
+
+    fillShips(min, max) {
+        // Will call this.availableCoodinates
+    }
+
 
     // fillGrid() {
     //     const arr = [];
