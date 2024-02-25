@@ -29,7 +29,7 @@ class Board {
             for (let j = 0; j < row.length; j++) {
                 const cell = row[j];
 
-                if ((cell !== "S") || (cell !== "H" || cell !== "X")) grid.push( { row: i, column: j} )
+                if ((cell !== "S")) grid.push( { row: i, column: j } )
             }
 
         }
@@ -38,7 +38,17 @@ class Board {
     }
 
     fillShips(min, max) {
-        // Will call this.availableCoodinates
+        let count = 10;
+
+        while (count > 0) {
+            const coordinates = this.availableCoordinates(min, max);
+            const index = Math.floor(Math.random() * coordinates.length);
+            const coordinate = coordinates[index];
+            this.actualGrid[coordinate.row][coordinate.column] = "S";
+            count--;
+        }
+
+        return;
     }
 
 

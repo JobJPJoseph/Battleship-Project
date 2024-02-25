@@ -261,18 +261,22 @@ describe('Board', function () {
 
     describe("FillShips", function () {
 
-        it('', function () {
+        it('Must randomly place 10 Enemy ships in the top layer of the grid', function () {
+            // Here we are going to spy on fillShips  and test if it calls Math.random 10 times
+            // const spyFillShips = chai.spy.on(board, 'fillShips');
+            const spyRandom = chai.spy.on(Math, 'random');
+
+            board.fillShips(0, 3);
+
+            expect(spyRandom).to.have.been.called.exactly(10);
+            // spyRandom.reset();
 
         });
-
-    });
-
-
-    describe('EnemyShips', function () {
 
         context('Should cover from indices 0 to not including 3', function () {
 
             it('should have a total of 10 enemy ships', function () {
+                board.fillShips(0, 3);
                 const grid = board.actualGrid;
                 let count = 0;
 
@@ -286,6 +290,7 @@ describe('Board', function () {
 
                 expect(count).to.equal(10);
             });
+
         });
     });
 
