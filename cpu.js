@@ -1,14 +1,20 @@
+// const Board = require('./board');
+
 class ComputerPlayer {
-    constructor() {}
+    // constructor() {}
 
-    async getCoordinate(availablePositions) {
+    // async getCoordinate(availablePositions) {
 
-        return new Promise((resolve) => {
-            const randomNumber = Math.floor(Math.random() * availablePositions.length);
-            const coordinate = availablePositions[randomNumber];
-            resolve(coordinate);
-        });
+    //     return new Promise((resolve) => {
+    //         const randomNumber = Math.floor(Math.random() * availablePositions.length);
+    //         const coordinate = availablePositions[randomNumber];
+    //         resolve(coordinate);
+    //     });
 
+    // }
+
+    constructor(object) {
+        this.board = object;
     }
 
 }

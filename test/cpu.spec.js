@@ -84,3 +84,41 @@
 //         });
 //     });
 // });
+
+const chai = require('chai');
+const spies = require('chai-spies');
+chai.use(spies);
+
+const expect = chai.expect;
+
+const ComputerPlayer = require('../cpu');
+const Board = require('../board');
+
+describe('Computer Player', function () {
+
+    it('should successfully create an instance of ComputerPlayer', function () {
+        const computerPlayer = new ComputerPlayer();
+        expect(computerPlayer).to.be.instanceOf(ComputerPlayer);
+    });
+
+    let board;
+    let computerPlayer;
+
+    beforeEach(function () {
+        const size = 9;
+        board = new Board(size);
+        computerPlayer = new ComputerPlayer(board);
+    });
+
+    describe('Constructor', function () {
+
+        it('should accept an argument the represnt an instance of the Board class', function () {
+            expect(computerPlayer.board, 'should be an object').to.be.a('object');
+            expect(computerPlayer.board, 'should be an instance of Board').to.be.instanceOf(Board);
+        });
+
+    });
+
+
+
+});
