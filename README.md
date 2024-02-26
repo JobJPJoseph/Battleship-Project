@@ -19,3 +19,6 @@ that isnt the goal to make a perfect working code.
 
 ## Phase 1
     When we initialize the board it will be a 9x9 grid. We will not ask for the size of the grid. 1/3 of the grid will be filled with the Computer's ships and the bottom 1/3 will be filled with the Player's ships. Leaving the last 1/3 an empty zone.
+
+## Phase 2
+    Since Player and ComputerPlayer are always getting a range on coordinates we don't have to worry about providing that to attackShip. We will design the attckShip  method to now reference the a coordinate in actualGrid and set it to `S`, `H` or `X`.

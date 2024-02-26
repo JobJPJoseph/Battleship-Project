@@ -18,6 +18,10 @@ class Board {
             this.promptedGrid.push(new Array(n).fill('N'));
         }
 
+        // We will call these in the game file
+        // this.enemyShips = this.fillShips(0, 3); // Causes to many issues with test but not wrong
+        // this.playerShips = this.fillShips(6, 9); // Causes to many issues with test but not wrong
+
     }
 
     availableCoordinates(min, max) {
@@ -49,6 +53,21 @@ class Board {
         }
 
         return;
+    }
+
+    attackShip(coordinateObj) {
+        const { row, column } = coordinateObj;
+
+        if(this.actualGrid[row][column] === "S") {
+            // A hit
+            this.promptedGrid[row][column] = "H";
+            this.actualGrid[row][column] = "H";
+        } else {
+            // A miss
+            this.promptedGrid[row][column] = "X";
+            this.actualGrid[row][column] = "X";
+        }
+
     }
 
 

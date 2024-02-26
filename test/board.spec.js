@@ -206,7 +206,6 @@ describe('Board', function () {
 
         });
 
-
     });
 
     describe('availableCoordinates', function () {
@@ -261,37 +260,112 @@ describe('Board', function () {
 
     describe("FillShips", function () {
 
-        it('Must randomly place 10 Enemy ships in the top layer of the grid', function () {
-            // Here we are going to spy on fillShips  and test if it calls Math.random 10 times
-            // const spyFillShips = chai.spy.on(board, 'fillShips');
-            const spyRandom = chai.spy.on(Math, 'random');
+        context('Enemy Ships', function () {
 
-            board.fillShips(0, 3);
+            it('Must randomly place 10 Enemy ships in the top layer of the grid', function () {
+                // Here we are going to spy on fillShips  and test if it calls Math.random 10 times
+                // const spyFillShips = chai.spy.on(board, 'fillShips');
+                const spyRandom = chai.spy.on(Math, 'random');
 
-            expect(spyRandom).to.have.been.called.exactly(10);
-            // spyRandom.reset();
-
-        });
-
-        context('Should cover from indices 0 to not including 3', function () {
-
-            it('should have a total of 10 enemy ships', function () {
                 board.fillShips(0, 3);
-                const grid = board.actualGrid;
-                let count = 0;
 
-                for(let i = 0; i < 3; i++) {
-                    const row = grid[i];
+                expect(spyRandom).to.have.been.called.exactly(10);
+                chai.spy.restore(Math, 'random');
+            });
 
-                    row.forEach(function (cell) {
-                        if (cell === 'S') count++;
-                    });
-                }
+            context('Should cover from row 0 to not including 3', function () {
 
-                expect(count).to.equal(10);
+                it('this.actualGrid should have a total of 10 enemy ships', function () {
+                    board.fillShips(0, 3);
+                    const grid = board.actualGrid;
+                    let count = 0;
+
+                    for(let i = 0; i < 3; i++) {
+                        const row = grid[i];
+
+                        row.forEach(function (cell) {
+                            if (cell === 'S') count++;
+                        });
+                    }
+
+                    expect(count).to.equal(10);
+                });
+
             });
 
         });
+
+        context('Player Ships', function () {
+
+            it('Must randomly place 10 Enemy ships in the bottom layer of the grid', function () {
+                // Here we are going to spy on fillShips  and test if it calls Math.random 10 times
+                // const spyFillShips = chai.spy.on(board, 'fillShips');
+                const spyRandom = chai.spy.on(Math, 'random');
+
+                board.fillShips(6, 9);
+
+                expect(spyRandom).to.have.been.called.exactly(10);
+                chai.spy.restore(Math, 'random');
+            });
+
+            context('Should cover from row 6 to not including 9', function () {
+
+                it('this.actualGrid should have a total of 10 enemy ships', function () {
+                    board.fillShips(6, 9);
+                    const grid = board.actualGrid;
+                    let count = 0;
+
+                    for(let i = 6; i < 9; i++) {
+                        const row = grid[i];
+
+                        row.forEach(function (cell) {
+                            if (cell === 'S') count++;
+                        });
+                    }
+
+                    expect(count).to.equal(10);
+                });
+
+            });
+
+        });
+
+    });
+
+    describe('attackShip', function () {
+
+        context('Hitting a target', function () {
+
+            it("if on successful hit, should set index of promptedGrid to 'H'", function () {
+                board.actualGrid[0][0] = 'S';
+                board.attackShip({ row: 0, column: 0 });
+                expect(board.promptedGrid[0][0]).to.equal('H');
+            });
+
+            it('if on successful hit, should set index of actualGrid to "H"', function () {
+                board.actualGrid[0][0] = 'S';
+                board.attackShip({ row: 0, column: 0 });
+                expect(board.actualGrid[0][0]).to.equal('H');
+            });
+
+        });
+
+        context('Missing your target', function () {
+
+            it("if on successful miss, should set index of promptedGrid to 'X'", function () {
+                board.actualGrid[0][0] = ' ';
+                board.attackShip({ row: 0, column: 0 });
+                expect(board.promptedGrid[0][0]).to.equal('X');
+            });
+
+            it('if on successful miss, should set index of actualGrid to "X"', function () {
+                board.actualGrid[0][0] = ' ';
+                board.attackShip({ row: 0, column: 0 });
+                expect(board.actualGrid[0][0]).to.equal('X');
+            });
+
+        });
+
     });
 
 });
