@@ -187,3 +187,39 @@
 //     });
 
 // })
+
+const chai = require('chai');
+const spies = require('chai-spies');
+chai.use(spies);
+
+const expect = chai.expect;
+const { Player } = require('../player');
+const Board = require('../board');
+
+describe('Player class', function () {
+
+    it('should successfully create the Player class', function () {
+        expect(Player).to.exist;
+    });
+
+    let player;
+    let board;
+
+    beforeEach(function () {
+        const size = 9;
+        board = new Board(size);
+        board.fillShips(0, 3);
+        board.fillShips(6, 9);
+        player = new Player(board);
+    });
+
+    describe('Constructor', function () {
+
+        it('should initialize the board instance', function () {
+            expect(player.board).to.exist;
+            expect(player.board, 'should be an Object').to.be.a('object');
+        });
+
+    });
+
+});

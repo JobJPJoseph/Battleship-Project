@@ -25,3 +25,6 @@ that isnt the goal to make a perfect working code.
 
 ## Phase 3
     Now lets focus on making the Computer class. The class will accept 'this' as an argument. It will NOT extend from the Board class. From here create a situation where it has a 50/50 chance to hit a ship and not hit a ship.
+
+## Phase 4
+    This phase will focus on retrieve the player's input and return it in an object format. It will NOT extend from the board class. It will have a constructor. Make sure to validate the player's input.
