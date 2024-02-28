@@ -51,6 +51,16 @@ class ComputerPlayer {
         return coordinate[index];
     }
 
+    getValidPosition() {
+
+        if(this.exeCheatEngine()) {
+            return this.getRandomPlayerShip();
+        } else {
+            return this.getRandomAvailablePosition();
+        }
+
+    }
+
 }
 
 // const cpu = new CPU();

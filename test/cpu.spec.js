@@ -210,15 +210,4 @@ describe('Computer Player', function () {
 
     });
 
-    describe('getValidPosition', function  () {
-
-        it('should call board.availableCoordinates and return a random', function () {
-            // If true, will call getPlayerShips and return a random ship from the array
-            // If false, will call board.availableCoordinates
-
-        });
-
-    });
-
-
 });
