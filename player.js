@@ -68,6 +68,19 @@ class Player {
         this.board = object;
     }
 
+    isValid(input) {
+        const arrInput = input.split(" ");
+
+        if(arrInput.length !== 2) return false;
+
+        if(!arrInput.every(function (element) {
+            const word = parseInt(element);
+            return Number.isInteger(word);
+        })) return false;
+
+        return true;
+    }
+
 }
 
 module.exports = {

@@ -222,4 +222,63 @@ describe('Player class', function () {
 
     });
 
+    describe("isValid", function () {
+
+        it("should return Boolean on whether the player's input is valid", function () {
+
+            const actual1 = "hello";
+            const expected1 = false;
+
+            const actual2 = "he11o";
+            const expected2 = false;
+
+            const actual3 = "0 0";
+            const expected3 = true;
+
+            const actual4 = "00";
+            const expected4 = false;
+
+            expect(player.isValid(actual1), `${actual1}`).to.equal(expected1);
+            expect(player.isValid(actual2), `${actual2}`).to.equal(expected2);
+            expect(player.isValid(actual3), `${actual3}`).to.equal(expected3);
+            expect(player.isValid(actual4), `${actual4}`).to.equal(expected4);
+        });
+
+    });
+
+    describe("formatInput", function () {
+
+        it('should call Player.isValid()', function () {
+            const isValidSpy = chai.spy.on(player, 'isValid');
+
+            const input = '0 0';
+            player.isValid(input);
+
+            expect(isValidSpy).to.have.been.called;
+        });
+
+        context('When the string is false', function () {
+
+            it('should return false, when the string is not valid', function () {
+                const input = "0 p";
+                const actual = player.formatInput(input);
+                const expected = false;
+                expect(actual).to.equal(expected);
+            });
+
+        });
+
+        context('When the string is valid', function () {
+
+            it('should return the input in an array type', function () {
+                const input = "0 0";
+                const actual = player.formatInput(input);
+                const expected = [0, 0];
+                expect(actual).to.deep.equal(expected);
+            });
+
+        });
+
+    });
+
 });
