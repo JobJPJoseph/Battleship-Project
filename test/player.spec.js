@@ -281,4 +281,77 @@ describe('Player class', function () {
 
     });
 
+    describe('listOfCoordinates', function () {
+
+        it('should retrieve all the coordinates from 0 to not including 3', function () {
+            // We need to make sure that it is in the context of the Board class
+            const inputs = player.listOfCoordinates.call(player.board);
+
+            const expectedArr = [
+                { row: 0, column: 0 },
+                { row: 0, column: 1 },
+                { row: 0, column: 2 },
+                { row: 0, column: 3 },
+                { row: 0, column: 4 },
+                { row: 0, column: 5 },
+                { row: 0, column: 6 },
+                { row: 0, column: 7 },
+                { row: 0, column: 8 },
+                { row: 1, column: 0 },
+                { row: 1, column: 1 },
+                { row: 1, column: 2 },
+                { row: 1, column: 3 },
+                { row: 1, column: 4 },
+                { row: 1, column: 5 },
+                { row: 1, column: 6 },
+                { row: 1, column: 7 },
+                { row: 1, column: 8 },
+                { row: 2, column: 0 },
+                { row: 2, column: 1 },
+                { row: 2, column: 2 },
+                { row: 2, column: 3 },
+                { row: 2, column: 4 },
+                { row: 2, column: 5 },
+                { row: 2, column: 6 },
+                { row: 2, column: 7 },
+                { row: 2, column: 8 },
+            ]
+
+            expect(inputs.length).to.equal(expectedArr.length);
+
+            for (let i = 0; i < expectedArr.length; i++) {
+                const coordinate = inputs[i];
+                const expected = expectedArr[i];
+
+                expect(coordinate).to.deep.equal(expected);
+            }
+
+        });
+
+    });
+
+    describe('askForInput', function () {
+
+        context('Asynchronous', function () {
+
+            it('it should return a Promise', function () {
+
+
+            });
+
+            it('should call isValid', function () {
+                // const askForInputSpy = chai.spy.on(player, 'askForInput');
+
+                // player.askForInput(player.board.)
+
+            });
+
+            it('should call formatInput', function () {
+
+            });
+
+        });
+
+    });
+
 });

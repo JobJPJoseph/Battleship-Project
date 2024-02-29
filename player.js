@@ -81,6 +81,30 @@ class Player {
         return true;
     }
 
+    formatInput(input) {
+
+        if (this.isValid(input)) {
+            return input.split(' ').map(elem => parseInt(elem));
+        } else {
+            return false;
+        }
+    }
+
+    listOfCoordinates() { // Context is different
+        const coordinates = [];
+
+        for (let i = 0; i < 3; i++) {
+
+            for (let j = 0; j < 9; j++) {
+
+                coordinates.push({ row: i, column: j });
+            }
+
+        }
+
+        return coordinates;
+    }
+
 }
 
 module.exports = {
