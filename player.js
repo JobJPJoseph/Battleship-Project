@@ -63,6 +63,9 @@
 
 // module.exports = Player;
 
+const { stdin } = require('process');
+const readline = require('readline');
+
 class Player {
     constructor(object) {
         this.board = object;
@@ -103,6 +106,46 @@ class Player {
         }
 
         return coordinates;
+    }
+
+    checkForInclusion(input, choices) {
+
+        for(let i = 0; i < choices.length; i++) {
+            const choice = choices[i];
+
+            if((input.row === choice.row) && (input.column === choice.column)) return true;
+        }
+
+        return false;
+    }
+
+    askForInput(coordinates) {
+
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+
+        return new Promise((resolve) => {
+            // implement checkForInclusion
+
+            const getCoordinate = () => {
+
+                rl.question('Enter your coordinate: ', (input) => {
+                    if(this.isValid(input)) {
+                        const coordinate = this.formatInput(input);
+                        rl.close();
+                        resolve(coordinate);
+                    } else {
+                        getCoordinate();
+                    }
+
+                });
+            }
+
+            getCoordinate();
+        });
+
     }
 
 }

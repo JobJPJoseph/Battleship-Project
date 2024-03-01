@@ -255,6 +255,7 @@ describe('Player class', function () {
             player.isValid(input);
 
             expect(isValidSpy).to.have.been.called;
+            chai.spy.restore(isValidSpy);
         });
 
         context('When the string is false', function () {
@@ -330,24 +331,85 @@ describe('Player class', function () {
 
     });
 
+    describe('checkForInclusion', function () {
+
+        it('should return a Boolean on whether the input is included', function () {
+            const input = { row: 1, column: 5 };
+
+            const coordinates = [
+                { row: 0, column: 0 },
+                { row: 0, column: 1 },
+                { row: 0, column: 2 },
+                { row: 0, column: 3 },
+                { row: 0, column: 4 },
+                { row: 0, column: 5 },
+                { row: 0, column: 6 },
+                { row: 0, column: 7 },
+                { row: 0, column: 8 },
+                { row: 1, column: 0 },
+                { row: 1, column: 1 },
+                { row: 1, column: 2 },
+                { row: 1, column: 3 },
+                { row: 1, column: 4 },
+                { row: 1, column: 5 },
+                { row: 1, column: 6 },
+                { row: 1, column: 7 },
+                { row: 1, column: 8 },
+                { row: 2, column: 0 },
+                { row: 2, column: 1 },
+                { row: 2, column: 2 },
+                { row: 2, column: 3 },
+                { row: 2, column: 4 },
+                { row: 2, column: 5 },
+                { row: 2, column: 6 },
+                { row: 2, column: 7 },
+                { row: 2, column: 8 },
+            ]
+
+            expect((player.checkForInclusion(input, coordinates))).to.equal(true);
+        });
+
+    });
+
     describe('askForInput', function () {
 
         context('Asynchronous', function () {
 
             it('it should return a Promise', function () {
+                const actual = player.askForInput(player.listOfCoordinates.call(board));
 
-
+                expect(actual).to.be.a('Promise');
             });
 
             it('should call isValid', function () {
-                // const askForInputSpy = chai.spy.on(player, 'askForInput');
+                const isValidSpy = chai.spy.on(player, 'isValid');
 
-                // player.askForInput(player.board.)
+                const input = player.listOfCoordinates.call(board)
 
+                player.askForInput(input);
+
+
+                expect(isValidSpy).to.have.been.called;
+                chai.spy.restore(isValidSpy);
             });
 
             it('should call formatInput', function () {
+                const formatInputSpy = chai.spy.on(player, 'formatInput');
 
+                const input = player.listOfCoordinates.call(board)
+                player.askForInput(input);
+
+                expect(formatInputSpy).to.have.been.called;
+                chai.spy.restore(formatInputSpy);
+            });
+
+            it('should call checkForInclusion', function () {
+                const checkForInclusionSpy = chai.spy.on(player, 'checkForInclusion');
+
+                const input = player.listOfCoordinates.call(board)
+                player.askForInput(input);
+
+                expect(checkForInclusionSpy).to.have.been.called;
             });
 
         });
