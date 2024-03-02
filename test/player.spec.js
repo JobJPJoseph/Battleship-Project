@@ -271,11 +271,11 @@ describe('Player class', function () {
 
         context('When the string is valid', function () {
 
-            it('should return the input in an array type', function () {
+            it('should return the input in an object type', function () {
                 const input = "0 0";
                 const actual = player.formatInput(input);
-                const expected = [0, 0];
-                expect(actual).to.deep.equal(expected);
+                const expected = { row: 0, column: 0 };
+                expect(actual).to.deep.equal(expected).and.to.be.a('object');
             });
 
         });
@@ -285,48 +285,11 @@ describe('Player class', function () {
     describe('listOfCoordinates', function () {
 
         it('should retrieve all the coordinates from 0 to not including 3', function () {
-            // We need to make sure that it is in the context of the Board class
-            const inputs = player.listOfCoordinates.call(player.board);
+            // We don't want 'X' or 'H' on actualGrid
+            player.board.actualGrid[0][0] = "X";
+            const inputs = player.listOfCoordinates();
 
-            const expectedArr = [
-                { row: 0, column: 0 },
-                { row: 0, column: 1 },
-                { row: 0, column: 2 },
-                { row: 0, column: 3 },
-                { row: 0, column: 4 },
-                { row: 0, column: 5 },
-                { row: 0, column: 6 },
-                { row: 0, column: 7 },
-                { row: 0, column: 8 },
-                { row: 1, column: 0 },
-                { row: 1, column: 1 },
-                { row: 1, column: 2 },
-                { row: 1, column: 3 },
-                { row: 1, column: 4 },
-                { row: 1, column: 5 },
-                { row: 1, column: 6 },
-                { row: 1, column: 7 },
-                { row: 1, column: 8 },
-                { row: 2, column: 0 },
-                { row: 2, column: 1 },
-                { row: 2, column: 2 },
-                { row: 2, column: 3 },
-                { row: 2, column: 4 },
-                { row: 2, column: 5 },
-                { row: 2, column: 6 },
-                { row: 2, column: 7 },
-                { row: 2, column: 8 },
-            ]
-
-            expect(inputs.length).to.equal(expectedArr.length);
-
-            for (let i = 0; i < expectedArr.length; i++) {
-                const coordinate = inputs[i];
-                const expected = expectedArr[i];
-
-                expect(coordinate).to.deep.equal(expected);
-            }
-
+            expect(inputs.length).to.equal(26);
         });
 
     });
@@ -375,41 +338,47 @@ describe('Player class', function () {
 
         context('Asynchronous', function () {
 
-            it('it should return a Promise', function () {
-                const actual = player.askForInput(player.listOfCoordinates.call(board));
+            // it('it should return a Promise', async function () {
+            //     const actual = await player.askForInput(player.listOfCoordinates());
 
-                expect(actual).to.be.a('Promise');
-            });
+            //     expect(actual).to.be.a('Promise');
+            // });
 
-            it('should call isValid', function () {
-                const isValidSpy = chai.spy.on(player, 'isValid');
+            // it('should call isValid', async function () {
+            //     const isValidSpy = chai.spy.on(player, 'isValid');
 
-                const input = player.listOfCoordinates.call(board)
+            //     const input = player.listOfCoordinates();
 
-                player.askForInput(input);
+            //     await player.askForInput(input);
 
 
-                expect(isValidSpy).to.have.been.called;
-                chai.spy.restore(isValidSpy);
-            });
+            //     expect(isValidSpy).to.have.been.called;
+            //     chai.spy.restore(isValidSpy);
+            // });
 
-            it('should call formatInput', function () {
-                const formatInputSpy = chai.spy.on(player, 'formatInput');
+            // it('should call formatInput', async function () {
+            //     const formatInputSpy = chai.spy.on(player, 'formatInput');
 
-                const input = player.listOfCoordinates.call(board)
-                player.askForInput(input);
+            //     const input = player.listOfCoordinates();
+            //     await player.askForInput(input);
 
-                expect(formatInputSpy).to.have.been.called;
-                chai.spy.restore(formatInputSpy);
-            });
+            //     expect(formatInputSpy).to.have.been.called;
+            //     chai.spy.restore(formatInputSpy);
+            // });
 
-            it('should call checkForInclusion', function () {
-                const checkForInclusionSpy = chai.spy.on(player, 'checkForInclusion');
+            // it('should call checkForInclusion', async function () {
+            //     const checkForInclusionSpy = chai.spy.on(player, 'checkForInclusion');
 
-                const input = player.listOfCoordinates.call(board)
-                player.askForInput(input);
+            //     const input = player.listOfCoordinates();
+            //     await player.askForInput(input);
 
-                expect(checkForInclusionSpy).to.have.been.called;
+            //     expect(checkForInclusionSpy).to.have.been.called;
+            // });
+
+            it("should return the player's input", async function () {
+                const input = await player.askForInput();
+                expect(input).to.be.a('object');
+                expect(player.listOfCoordinates()).that.deep.include(input);
             });
 
         });

@@ -63,7 +63,6 @@
 
 // module.exports = Player;
 
-const { stdin } = require('process');
 const readline = require('readline');
 
 class Player {
@@ -87,20 +86,20 @@ class Player {
     formatInput(input) {
 
         if (this.isValid(input)) {
-            return input.split(' ').map(elem => parseInt(elem));
+            return { row: parseInt(input[0]), column: parseInt(input[2])};
         } else {
             return false;
         }
     }
 
-    listOfCoordinates() { // Context is different
+    listOfCoordinates() {
         const coordinates = [];
 
-        for (let i = 0; i < 3; i++) {
+        for(let i = 0; i < 3; i++) {
 
-            for (let j = 0; j < 9; j++) {
+            for(let j = 0; j < this.board.actualGrid[0].length; j++) {
 
-                coordinates.push({ row: i, column: j });
+                if(this.board.actualGrid[i][j] === ' ' || this.board.actualGrid[i][j] === 'S') coordinates.push({ row: i, column: j });
             }
 
         }
@@ -119,28 +118,30 @@ class Player {
         return false;
     }
 
-    askForInput(coordinates) {
+    async askForInput() {
 
         const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
         });
 
-        return new Promise((resolve) => {
-            // implement checkForInclusion
+        return await new Promise((resolve) => {
 
             const getCoordinate = () => {
 
-                rl.question('Enter your coordinate: ', (input) => {
-                    if(this.isValid(input)) {
-                        const coordinate = this.formatInput(input);
+                rl.question('Enter your coordinate: ', (strInput) => {
+                    const input = this.formatInput(strInput);
+
+                    if(this.checkForInclusion(input, this.listOfCoordinates())) {
                         rl.close();
-                        resolve(coordinate);
+                        resolve(input);
                     } else {
+                        console.log('Invalid Input');
                         getCoordinate();
                     }
 
                 });
+
             }
 
             getCoordinate();
