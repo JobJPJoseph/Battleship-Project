@@ -338,47 +338,47 @@ describe('Player class', function () {
 
         context('Asynchronous', function () {
 
-            // it('it should return a Promise', async function () {
-            //     const actual = await player.askForInput(player.listOfCoordinates());
+            let isValidSpy, formatInputSpy, checkForInclusionSpy;
 
-            //     expect(actual).to.be.a('Promise');
-            // });
+            beforeEach(function () {
+                isValidSpy = chai.spy.on(player, 'isValid');
+                formatInputSpy = chai.spy.on(player, 'formatInput');
+                checkForInclusionSpy = chai.spy.on(player, 'checkForInclusion');
+            });
 
-            // it('should call isValid', async function () {
-            //     const isValidSpy = chai.spy.on(player, 'isValid');
+            afterEach(function () {
+                chai.spy.restore(isValidSpy);
+                chai.spy.restore(formatInputSpy);
+                chai.spy.restore(checkForInclusionSpy);
+            });
 
-            //     const input = player.listOfCoordinates();
+            it('it should return a Promise', async function () {
+                const actual = await player.askForInput(player.listOfCoordinates());
+                return expect(actual).to.be.instanceOf(Object);
+            });
 
-            //     await player.askForInput(input);
+            it('should call isValid', async function () {
+                const input = player.listOfCoordinates();
+                await player.askForInput(input);
+                return expect(isValidSpy).to.have.been.called;
+            });
 
+            it('should call formatInput', async function () {
+                const input = player.listOfCoordinates();
+                await player.askForInput(input);
+                return expect(formatInputSpy).to.have.been.called;
+            });
 
-            //     expect(isValidSpy).to.have.been.called;
-            //     chai.spy.restore(isValidSpy);
-            // });
-
-            // it('should call formatInput', async function () {
-            //     const formatInputSpy = chai.spy.on(player, 'formatInput');
-
-            //     const input = player.listOfCoordinates();
-            //     await player.askForInput(input);
-
-            //     expect(formatInputSpy).to.have.been.called;
-            //     chai.spy.restore(formatInputSpy);
-            // });
-
-            // it('should call checkForInclusion', async function () {
-            //     const checkForInclusionSpy = chai.spy.on(player, 'checkForInclusion');
-
-            //     const input = player.listOfCoordinates();
-            //     await player.askForInput(input);
-
-            //     expect(checkForInclusionSpy).to.have.been.called;
-            // });
+            it('should call checkForInclusion', async function () {
+                const input = player.listOfCoordinates();
+                await player.askForInput(input);
+                return expect(checkForInclusionSpy).to.have.been.called;
+            });
 
             it("should return the player's input", async function () {
                 const input = await player.askForInput();
                 expect(input).to.be.a('object');
-                expect(player.listOfCoordinates()).that.deep.include(input);
+                return expect(player.listOfCoordinates()).that.deep.include(input);
             });
 
         });
