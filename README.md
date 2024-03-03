@@ -28,3 +28,6 @@ that isnt the goal to make a perfect working code.
 
 ## Phase 4
     This phase will focus on retrieve the player's input and return it in an object format. It will NOT extend from the board class. It will have a constructor. Make sure to validate the player's input.
+
+## Phase 5
+    In this phase we will turn our focus back towards the Board class. We need to print the board in a particular way.
