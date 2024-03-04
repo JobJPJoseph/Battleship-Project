@@ -83,23 +83,18 @@ class Board {
         console.log()
 
         this.portion(6, 9);
-
     }
 
     portion(min, max) {
         const ships = this.range(min, max);
 
         console.log(ships.map(row => row.join(" | ")).join('\n' + '_________________________________' + '\n'));
-
-        return null;
     }
 
     spaceBetween(min, max) {
         const water = this.range(min, max);
 
         console.log(water.map(row => row.join(" | ")).join('\n' + '_________________________________' + '\n'));
-
-        return null;
     }
 
     addWater() {
@@ -110,7 +105,6 @@ class Board {
             for (let k = 0; k < row.length; k++) {
                 row[k] = "~";
             }
-
 
         }
 
@@ -127,6 +121,34 @@ class Board {
         return arr;
     }
 
+    remainingShips(min, max) {
+        // const ships = this.range(min, max);
+        const range = (min, max) => {
+            const arr = [];
+
+            for(let i = min; i < max; i++) {
+                const row = this.actualGrid[i];
+                arr.push(row);
+            }
+
+            return arr;
+        }
+
+        const ships = range(min, max);
+
+        let count = 0;
+
+        for (let i = 0; i < ships.length; i++) {
+            const arrShip = ships[i];
+
+            arrShip.forEach(elem => {
+                if(elem === "S") count++;
+            });
+
+        }
+
+        return count;
+    }
 
 
 

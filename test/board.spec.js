@@ -368,85 +368,27 @@ describe('Board', function () {
 
     });
 
-    describe('printGrid', function () {
-        // We want to print this out in a particular way.
-        // Within the ranges of 0-3 and 6-9 we want to print out out
-        // this.promptedGrid as if it was a actual grid.
-        // Withing 3-6 there needs to be filled with dashes.
-            // This will represent the water between the ships
-        // Also there needs to be two spaces btw the top and bottom portion
+    describe('remainingShips', function () {
 
-        /*
-            N|N|N|N|N|N|N|N|N
-            _________________
-            N|N|N|N|N|N|N|N|N
-            _________________
-            N|N|N|N|N|N|N|N|N
+        context('Enemy Ships', function () {
 
+            it('should the number of enemy ships left pn the board', function () {
+                board.fillShips(0, 3);
+                const actual = board.remainingShips(0, 3);
+                const expected = 10;
+                expect(actual).to.equal(expected);
+            });
 
-            ~~~~~~~~~~~~~~~~~
-            ~~~~~~~~~~~~~~~~~
-            ~~~~~~~~~~~~~~~~~
+        });
 
+        context('Player Ships', function () {
 
-            N|N|N|N|N|N|N|N|N
-            _________________
-            N|N|N|N|N|N|N|N|N
-            _________________
-            N|N|N|N|N|N|N|N|N
-
-        */
-
-
-        it('should print promptedGrid as expected', function () {
-            board.fillShips(0, 3);
-            board.fillShips(6, 9);
-            board.printGrid();
-            const expected = [
-                ['N','N','N','N','N','N','N','N','N'],
-                ['N','N','N','N','N','N','N','N','N'],
-                ['N','N','N','N','N','N','N','N','N'],
-                ['~','~','~','~','~','~','~','~','~'],
-                ['~','~','~','~','~','~','~','~','~'],
-                ['~','~','~','~','~','~','~','~','~'],
-                ['N','N','N','N','N','N','N','N','N'],
-                ['N','N','N','N','N','N','N','N','N'],
-                ['N','N','N','N','N','N','N','N','N'],
-            ];
-
-            // The 'N' elements will be joined with .join(" | ")
-            // Each row from 0-3 and 6-9 will be joined with join("_")
-            // two lines of spaces before index 3 and 6
-            // The 'about signs' represnet water. It will be joined with .join(" | ")
-            // The rows will be joined with .join("_");
-
-            // Mock the console.log function to capture the output
-            // const originalLog = console.log;
-            // let capturedOutput = '';
-            // console.log = (msg) => {
-            //     capturedOutput += msg + '\n';
-            // };
-
-            // // Call the printGrid function with the mocked grid
-            // printGrid(expected);
-
-            // // Restore the console.log function
-            // console.log = originalLog;
-
-            // // Split the captured output into rows
-            // const actualOutputRows = capturedOutput.trim().split('\n');
-
-            // // Compare each row of the actual output with the expected output
-            // actualOutputRows.forEach((row, index) => {
-            //     const expectedRow = expected[index].join(" | ");
-
-            //     // Rows 3 and 6 should have two lines of spaces
-            //     if (index === 3 || index === 6) {
-            //         expect(row).to.equal('\n');
-            //     } else {
-            //         expect(row).to.equal(expectedRow);
-            //     }
-            // });
+            it('should the number of Player ships left pn the board', function () {
+                board.fillShips(6, 9);
+                const actual = board.remainingShips(6, 9);
+                const expected = 10;
+                expect(actual).to.equal(expected);
+            });
 
         });
 

@@ -31,3 +31,5 @@ that isnt the goal to make a perfect working code.
 
 ## Phase 5
     In this phase we will turn our focus back towards the Board class. We need to print the board in a particular way.
+
+## Phase 6
