@@ -33,3 +33,4 @@ that isnt the goal to make a perfect working code.
     In this phase we will turn our focus back towards the Board class. We need to print the board in a particular way.
 
 ## Phase 6
+    Now we a can focus on the game state. We will implement this in the game file.

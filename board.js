@@ -150,6 +150,23 @@ class Board {
         return count;
     }
 
+    // whoWon() {
+    //     const player = this.remainingShips(0, 3);
+    //     const cpu = this.remainingShips(6, 9);
+
+    //     if(player === 0) {
+    //         console.log('You lost');
+    //         return false;
+    //     }
+
+    //     if(cpu === 0) {
+    //         console.log('Player has Won');
+    //         return false;
+    //     }
+
+    //     return true;
+    // }
+
 
 
     // fillGrid() {
