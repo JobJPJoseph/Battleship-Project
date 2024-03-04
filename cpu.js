@@ -1,18 +1,4 @@
-// const Board = require('./board');
-
 class ComputerPlayer {
-    // constructor() {}
-
-    // async getCoordinate(availablePositions) {
-
-    //     return new Promise((resolve) => {
-    //         const randomNumber = Math.floor(Math.random() * availablePositions.length);
-    //         const coordinate = availablePositions[randomNumber];
-    //         resolve(coordinate);
-    //     });
-
-    // }
-
     constructor(object) {
         this.board = object;
     }
@@ -35,7 +21,7 @@ class ComputerPlayer {
     }
 
     getRandomPlayerShip() {
-        const coordinates = this.getPlayerShips(); // does grab Ships
+        const coordinates = this.getPlayerShips();
         const index = Math.floor(Math.random() * coordinates.length);
         return coordinates[index];
     }
@@ -46,7 +32,7 @@ class ComputerPlayer {
     }
 
     getRandomAvailablePosition() {
-        const coordinate = this.board.availableCoordinates(6, 9); // does not grab Ships
+        const coordinate = this.board.availableCoordinates(6, 9);
         const index = Math.floor(Math.random() * coordinate.length);
         return coordinate[index];
     }
@@ -62,23 +48,5 @@ class ComputerPlayer {
     }
 
 }
-
-// const cpu = new CPU();
-
-// const available = [
-//     [0, 0], [0, 1], [0, 2]
-// ];
-
-// async function getInput() {
-//     return await cpu.getCoordinate(available);
-// }
-
-// // You need to use await when calling the async function
-// async function main() {
-//     const input = await getInput();
-//     console.log(input);
-// }
-
-// main();
 
 module.exports = ComputerPlayer;
