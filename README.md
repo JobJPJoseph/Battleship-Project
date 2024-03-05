@@ -8,11 +8,11 @@ that isnt the goal to make a perfect working code.
 ## Things to implement:
     Inheritance:
     Binding (context):
-    Asychronousity (Promises/asyce-await):
+    Asychronousity (Promises/asyce-await): Done
     Error Handling:
-    NPM Packages (Mocha/Chai):
+    NPM Packages (Mocha/Chai): Done
     Class instances:
-    Single Responsibiity Principle:
+    Single Responsibiity Principle: Done
 
 ## Update:
     We need to redesign this project so that it is more readable and make it as we want it.
@@ -34,3 +34,6 @@ that isnt the goal to make a perfect working code.
 
 ## Phase 6
     Now we a can focus on the game state. We will implement this in the game file.
+
+## Phase 7
+    Now that the game is working in full swing let's implement other concepts that we learned. Let's first start by creating a file called screen.js. This will involve making a class instance that will represent a grid. The Board class will use this same grid. We will need to factor everything that uses the previous version of the grid.
