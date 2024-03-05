@@ -1,12 +1,12 @@
 class Board {
     constructor(n) {
-        this.actualGrid = [];
-        this.promptedGrid = [];
+        // this.actualGrid = [];
+        // this.promptedGrid = [];
 
-        for(let i = 0; i < n; i++) {
-            this.actualGrid.push(new Array(n).fill(' '));
-            this.promptedGrid.push(new Array(n).fill('N'));
-        }
+        // for(let i = 0; i < n; i++) {
+        //     this.actualGrid.push(new Array(n).fill(' '));
+        //     this.promptedGrid.push(new Array(n).fill('N'));
+        // }
 
     }
 
@@ -54,57 +54,6 @@ class Board {
             this.actualGrid[row][column] = "X";
         }
 
-    }
-
-    printGrid() { // promptedGrid
-        this.portion(0, 3);
-        this.addWater();
-
-        console.log()
-        console.log()
-
-        this.spaceBetween(3, 6);
-
-        console.log()
-        console.log()
-
-        this.portion(6, 9);
-    }
-
-    portion(min, max) {
-        const ships = this.range(min, max);
-
-        console.log(ships.map(row => row.join(" | ")).join('\n' + '_________________________________' + '\n'));
-    }
-
-    spaceBetween(min, max) {
-        const water = this.range(min, max);
-
-        console.log(water.map(row => row.join(" | ")).join('\n' + '_________________________________' + '\n'));
-    }
-
-    addWater() {
-
-        for (let i = 3; i < 6; i++) {
-            const row = this.promptedGrid[i];
-
-            for (let k = 0; k < row.length; k++) {
-                row[k] = "~";
-            }
-
-        }
-
-    }
-
-    range(min, max) {
-        const arr = [];
-
-        for(let i = min; i < max; i++) {
-            const row = this.promptedGrid[i];
-            arr.push(row);
-        }
-
-        return arr;
     }
 
     remainingShips(min, max) {

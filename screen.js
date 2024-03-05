@@ -15,7 +15,6 @@ class Screen {
         }
 
         Screen.addWater();
-
     }
 
     static addWater() {
@@ -28,6 +27,42 @@ class Screen {
 
         }
 
+    }
+
+    static printGrid() { // promptedGrid
+        Screen.portion(0, 3);
+
+        console.log()
+        console.log()
+
+        Screen.spaceBetween(3, 6);
+
+        console.log()
+        console.log()
+
+        Screen.portion(6, 9);
+    }
+    static portion(min, max) {
+        const ships = Screen.range(min, max);
+
+        console.log(ships.map(row => row.join(" | ")).join('\n' + '_________________________________' + '\n'));
+    }
+
+    static spaceBetween(min, max) {
+        const water = Screen.range(min, max);
+
+        console.log(water.map(row => row.join(" | ")).join('\n' + '_________________________________' + '\n'));
+    }
+
+    static range(min, max) {
+        const arr = [];
+
+        for(let i = min; i < max; i++) {
+            const row = Screen.promptedGrid[i];
+            arr.push(row);
+        }
+
+        return arr;
     }
 
 }
