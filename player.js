@@ -4,7 +4,6 @@ const { Screen } = require('./screen');
 
 class Player extends Board {
     constructor(n) {
-        // this.board = object;
         super(n);
     }
 
@@ -45,7 +44,7 @@ class Player extends Board {
         return coordinates;
     }
 
-    checkForInclusion(input, choices) { // Use destructuring
+    checkForInclusion(input, choices) {
 
         for(let i = 0; i < choices.length; i++) {
             const choice = choices[i];

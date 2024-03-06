@@ -1,5 +1,4 @@
 class Screen {
-    // Im going to attemp something different
 
     static actualGrid = [];
 

@@ -19,15 +19,6 @@ describe('Screen', function () {
         Screen.initialize(size);
     });
 
-    /*
-    What we need:
-        printGrid
-            portion
-            spaceBetween
-            range
-
-    */
-
     describe('initialize', function () {
 
         context('ActualGrid', function () {
@@ -60,51 +51,6 @@ describe('Screen', function () {
             });
 
         });
-
-        // describe('fillShips', function () {
-
-        //     context('Enemy Ships 0-3', function () {
-
-        //         it('Screen.actualGrid should have a total of 10 enemy ships randomly placed', function () {
-        //             const grid = Screen.actualGrid;
-
-        //             let count = 0;
-
-        //             for(let i = 0; i < 3; i++) {
-        //                 const row = grid[i];
-
-        //                 row.forEach(function (cell) {
-        //                     if (cell === 'S') count++;
-        //                 });
-        //             }
-
-        //             expect(count).to.equal(10);
-
-        //         });
-
-        //     });
-
-        //     context('Player Ships 6-9', function () {
-
-        //         it('Screen.actualGrid should have a total of 10 player ships randomly placed', function () {
-        //             const grid = Screen.actualGrid;
-
-        //             let count = 0;
-
-        //             for(let i = 6; i < 9; i++) {
-        //                 const row = grid[i];
-
-        //                 row.forEach(function (cell) {
-        //                     if (cell === 'S') count++;
-        //                 });
-        //             }
-
-        //             expect(count).to.equal(10);
-        //         });
-
-        //     });
-
-        // });
 
     });
 

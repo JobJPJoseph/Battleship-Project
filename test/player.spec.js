@@ -35,11 +35,6 @@ describe('Player class', function () {
 
     describe('Constructor', function () {
 
-        // it('should initialize the board instance', function () {
-        //     expect(player.board).to.exist;
-        //     expect(player.board, 'should be an Object').to.be.a('object');
-        // });
-
         it('should also be an instance of the Board class', function () {
             expect(player).to.be.instanceOf(Board);
         });
@@ -109,12 +104,8 @@ describe('Player class', function () {
     describe('listOfCoordinates', function () {
 
         it('should retrieve all the coordinates from 0 to not including 3', function () {
-            // We don't want 'X' or 'H' on actualGrid
-            // player.board.actualGrid[0][0] = "X";
             Screen.actualGrid[0][0] = "X";
-            // const inputs = player.listOfCoordinates();
             const inputs = player.listOfCoordinates.call(Screen);
-
             expect(inputs.length).to.equal(26);
             Screen.actualGrid[0][0] = " ";
 
@@ -127,38 +118,36 @@ describe('Player class', function () {
         it('should return a Boolean on whether the input is included', function () {
             const input = { row: 1, column: 5 };
 
-            // const coordinates = [
-            //     { row: 0, column: 0 },
-            //     { row: 0, column: 1 },
-            //     { row: 0, column: 2 },
-            //     { row: 0, column: 3 },
-            //     { row: 0, column: 4 },
-            //     { row: 0, column: 5 },
-            //     { row: 0, column: 6 },
-            //     { row: 0, column: 7 },
-            //     { row: 0, column: 8 },
-            //     { row: 1, column: 0 },
-            //     { row: 1, column: 1 },
-            //     { row: 1, column: 2 },
-            //     { row: 1, column: 3 },
-            //     { row: 1, column: 4 },
-            //     { row: 1, column: 5 },
-            //     { row: 1, column: 6 },
-            //     { row: 1, column: 7 },
-            //     { row: 1, column: 8 },
-            //     { row: 2, column: 0 },
-            //     { row: 2, column: 1 },
-            //     { row: 2, column: 2 },
-            //     { row: 2, column: 3 },
-            //     { row: 2, column: 4 },
-            //     { row: 2, column: 5 },
-            //     { row: 2, column: 6 },
-            //     { row: 2, column: 7 },
-            //     { row: 2, column: 8 },
-            // ]
-            // We have access to availableCoordinates bc of the 'extends'
+            const coordinates = [
+                { row: 0, column: 0 },
+                { row: 0, column: 1 },
+                { row: 0, column: 2 },
+                { row: 0, column: 3 },
+                { row: 0, column: 4 },
+                { row: 0, column: 5 },
+                { row: 0, column: 6 },
+                { row: 0, column: 7 },
+                { row: 0, column: 8 },
+                { row: 1, column: 0 },
+                { row: 1, column: 1 },
+                { row: 1, column: 2 },
+                { row: 1, column: 3 },
+                { row: 1, column: 4 },
+                { row: 1, column: 5 },
+                { row: 1, column: 6 },
+                { row: 1, column: 7 },
+                { row: 1, column: 8 },
+                { row: 2, column: 0 },
+                { row: 2, column: 1 },
+                { row: 2, column: 2 },
+                { row: 2, column: 3 },
+                { row: 2, column: 4 },
+                { row: 2, column: 5 },
+                { row: 2, column: 6 },
+                { row: 2, column: 7 },
+                { row: 2, column: 8 },
+            ]
 
-            const coordinates = player.availableCoordinates.call(Screen, 0, 3);
             expect((player.checkForInclusion(input, coordinates))).to.equal(true);
         });
 

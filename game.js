@@ -1,3 +1,4 @@
+const { Screen } = require('./screen');
 const Board = require('./board');
 const { Player } = require('./player');
 const ComputerPlayer = require('./cpu');
@@ -7,31 +8,32 @@ const board = new Board(size);
 board.fillShips(0, 3);
 board.fillShips(6, 9);
 
-const player = new Player(board);
-const computerPlayer = new ComputerPlayer(board);
+const player = new Player(size);
+const computerPlayer = new ComputerPlayer(size);
 
 
 async function gameState() {
-    board.printGrid();
+    Screen.printGrid();
 
-    while(true) {
-        // Now lets simulate a single turn
+    while (true) {
         let turn;
 
         turn = await player.askForInput();
-        board.attackShip(turn);
-        if(!board.remainingShips(6, 9)) {
+        board.attackShip.call(Screen, turn);
+        if(!board.remainingShips.call(Screen, 6, 9)) {
             console.log('You have Won!');
             break;
         }
+
         turn = computerPlayer.getValidPosition();
-        board.attackShip(turn);
-        if(!board.remainingShips(0, 3)) {
-            console.log('Sorry, Player has Lost!');
+        board.attackShip.call(Screen, turn);
+        if(!board.remainingShips.call(Screen, 0, 3)) {
+            console.log('Sorry, Player has lost!');
             break;
         }
+
         console.clear();
-        board.printGrid();
+        Screen.printGrid();
     }
 
 }

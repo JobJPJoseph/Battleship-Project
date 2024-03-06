@@ -2,13 +2,6 @@ const { Screen } = require('./screen')
 
 class Board {
     constructor(n) {
-        // this.actualGrid = [];
-        // this.promptedGrid = [];
-
-        // for(let i = 0; i < n; i++) {
-        //     this.actualGrid.push(new Array(n).fill(' '));
-        //     this.promptedGrid.push(new Array(n).fill('N'));
-        // }
 
         if (!Screen.isInitialized) {
             Screen.initialize(n);
@@ -37,11 +30,9 @@ class Board {
         let count = 10;
 
         while (count > 0) {
-            // const coordinates = this.availableCoordinates(min, max);
             const coordinates = this.availableCoordinates.call(Screen, min, max);
             const index = Math.floor(Math.random() * coordinates.length);
             const coordinate = coordinates[index];
-            // this.actualGrid[coordinate.row][coordinate.column] = "S";
             Screen.actualGrid[coordinate.row][coordinate.column] = "S";
             count--;
         }
@@ -65,7 +56,6 @@ class Board {
     }
 
     remainingShips(min, max) {
-        // const ships = this.range(min, max);
         const range = (min, max) => {
             const arr = [];
 

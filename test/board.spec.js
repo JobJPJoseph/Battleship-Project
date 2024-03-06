@@ -61,7 +61,6 @@ describe('Board', function () {
     describe('availableCoordinates', function () {
 
         it('should return an array of objects the contain a coordinate in the actualGrid: { row: 0, column: 0 }', function () {
-            // const validValues = board.availableCoordinates(0, 3);
             const validValues = board.availableCoordinates.call(Screen, 0, 3);
             // row: 0-2 col: 0-8
 
@@ -114,8 +113,6 @@ describe('Board', function () {
         context('Enemy Ships', function () {
 
             it('Must randomly place 10 Enemy ships in the top layer of the grid', function () {
-                // Here we are going to spy on fillShips  and test if it calls Math.random 10 times
-                // const spyFillShips = chai.spy.on(board, 'fillShips');
                 const spyRandom = chai.spy.on(Math, 'random');
 
                 board.fillShips(0, 3);
@@ -127,8 +124,6 @@ describe('Board', function () {
             context('Should cover from row 0 to not including 3', function () {
 
                 it('Screen.actualGrid should have a total of 10 enemy ships', function () {
-                    // board.fillShips(0, 3);
-                    // const grid = board.actualGrid;
                     const grid = Screen.actualGrid;
 
                     let count = 0;
@@ -151,8 +146,6 @@ describe('Board', function () {
         context('Player Ships', function () {
 
             it('Must randomly place 10 Enemy ships in the bottom layer of the grid', function () {
-                // Here we are going to spy on fillShips  and test if it calls Math.random 10 times
-                // const spyFillShips = chai.spy.on(board, 'fillShips');
                 const spyRandom = chai.spy.on(Math, 'random');
 
                 board.fillShips(6, 9);
@@ -164,7 +157,6 @@ describe('Board', function () {
             context('Should cover from row 6 to not including 9', function () {
 
                 it('this.actualGrid should have a total of 10 enemy ships', function () {
-                    // board.fillShips(6, 9);
                     const grid = Screen.actualGrid;
                     let count = 0;
 
@@ -190,17 +182,13 @@ describe('Board', function () {
         context('Hitting a target', function () {
 
             it("if on successful hit, should set index of promptedGrid to 'H'", function () {
-                // board.actualGrid[0][0] = 'S';
                 Screen.actualGrid[0][0] = "S";
-                // board.attackShip({ row: 0, column: 0 });
                 board.attackShip.call(Screen, { row: 0, column: 0 });
                 expect(Screen.promptedGrid[0][0]).to.equal('H');
             });
 
             it('if on successful hit, should set index of actualGrid to "H"', function () {
-                // board.actualGrid[0][0] = 'S';
                 Screen.actualGrid[0][0] = "S";
-                // board.attackShip({ row: 0, column: 0 });
                 board.attackShip.call(Screen, { row: 0, column: 0 });
                 expect(Screen.actualGrid[0][0]).to.equal('H');
             });
@@ -210,17 +198,13 @@ describe('Board', function () {
         context('Missing your target', function () {
 
             it("if on successful miss, should set index of promptedGrid to 'X'", function () {
-                // board.actualGrid[0][0] = ' ';
                 Screen.actualGrid[0][0] = " ";
-                // board.attackShip({ row: 0, column: 0 });
                 board.attackShip.call(Screen, { row: 0, column: 0 });
                 expect(Screen.promptedGrid[0][0]).to.equal('X');
             });
 
             it('if on successful miss, should set index of actualGrid to "X"', function () {
-                // board.actualGrid[0][0] = ' ';
                 Screen.actualGrid[0][0] = " ";
-                // board.attackShip({ row: 0, column: 0 });
                 board.attackShip.call(Screen, { row: 0, column: 0 });
                 expect(Screen.actualGrid[0][0]).to.equal('X');
             });
@@ -234,8 +218,6 @@ describe('Board', function () {
         context('Enemy Ships', function () {
 
             it('should the number of enemy ships left pn the board', function () {
-                // board.fillShips(0, 3);
-                // const actual = board.remainingShips(0, 3);
                 const actual = board.remainingShips.call(Screen, 0, 3);
                 const expected = 10;
                 expect(actual).to.equal(expected);
@@ -246,8 +228,6 @@ describe('Board', function () {
         context('Player Ships', function () {
 
             it('should the number of Player ships left pn the board', function () {
-                // board.fillShips(6, 9);
-                // const actual = board.remainingShips(6, 9);
                 const actual = board.remainingShips.call(Screen, 6, 9);
                 const expected = 10;
                 expect(actual).to.equal(expected);
