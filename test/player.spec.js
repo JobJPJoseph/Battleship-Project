@@ -3,6 +3,8 @@ const spies = require('chai-spies');
 chai.use(spies);
 
 const expect = chai.expect;
+
+const { Screen } = require('../screen');
 const { Player } = require('../player');
 const Board = require('../board');
 
@@ -12,22 +14,34 @@ describe('Player class', function () {
         expect(Player).to.exist;
     });
 
-    let player;
-    let board;
+    it('should successfully create the Screen class', function () {
+        expect(Screen).to.exist;
+    });
 
-    beforeEach(function () {
+    it('should successfully create the Board class', function () {
+        expect(Board).to.exist;
+    });
+
+    let board;
+    let player;
+
+    before(function () {
         const size = 9;
         board = new Board(size);
         board.fillShips(0, 3);
         board.fillShips(6, 9);
-        player = new Player(board);
+        player = new Player(size);
     });
 
     describe('Constructor', function () {
 
-        it('should initialize the board instance', function () {
-            expect(player.board).to.exist;
-            expect(player.board, 'should be an Object').to.be.a('object');
+        // it('should initialize the board instance', function () {
+        //     expect(player.board).to.exist;
+        //     expect(player.board, 'should be an Object').to.be.a('object');
+        // });
+
+        it('should also be an instance of the Board class', function () {
+            expect(player).to.be.instanceOf(Board);
         });
 
     });
@@ -65,7 +79,7 @@ describe('Player class', function () {
             player.isValid(input);
 
             expect(isValidSpy).to.have.been.called;
-            chai.spy.restore(isValidSpy);
+            chai.spy.restore(player, 'isValid');
         });
 
         context('When the string is false', function () {
@@ -96,10 +110,14 @@ describe('Player class', function () {
 
         it('should retrieve all the coordinates from 0 to not including 3', function () {
             // We don't want 'X' or 'H' on actualGrid
-            player.board.actualGrid[0][0] = "X";
-            const inputs = player.listOfCoordinates();
+            // player.board.actualGrid[0][0] = "X";
+            Screen.actualGrid[0][0] = "X";
+            // const inputs = player.listOfCoordinates();
+            const inputs = player.listOfCoordinates.call(Screen);
 
             expect(inputs.length).to.equal(26);
+            Screen.actualGrid[0][0] = " ";
+
         });
 
     });
@@ -109,36 +127,38 @@ describe('Player class', function () {
         it('should return a Boolean on whether the input is included', function () {
             const input = { row: 1, column: 5 };
 
-            const coordinates = [
-                { row: 0, column: 0 },
-                { row: 0, column: 1 },
-                { row: 0, column: 2 },
-                { row: 0, column: 3 },
-                { row: 0, column: 4 },
-                { row: 0, column: 5 },
-                { row: 0, column: 6 },
-                { row: 0, column: 7 },
-                { row: 0, column: 8 },
-                { row: 1, column: 0 },
-                { row: 1, column: 1 },
-                { row: 1, column: 2 },
-                { row: 1, column: 3 },
-                { row: 1, column: 4 },
-                { row: 1, column: 5 },
-                { row: 1, column: 6 },
-                { row: 1, column: 7 },
-                { row: 1, column: 8 },
-                { row: 2, column: 0 },
-                { row: 2, column: 1 },
-                { row: 2, column: 2 },
-                { row: 2, column: 3 },
-                { row: 2, column: 4 },
-                { row: 2, column: 5 },
-                { row: 2, column: 6 },
-                { row: 2, column: 7 },
-                { row: 2, column: 8 },
-            ]
+            // const coordinates = [
+            //     { row: 0, column: 0 },
+            //     { row: 0, column: 1 },
+            //     { row: 0, column: 2 },
+            //     { row: 0, column: 3 },
+            //     { row: 0, column: 4 },
+            //     { row: 0, column: 5 },
+            //     { row: 0, column: 6 },
+            //     { row: 0, column: 7 },
+            //     { row: 0, column: 8 },
+            //     { row: 1, column: 0 },
+            //     { row: 1, column: 1 },
+            //     { row: 1, column: 2 },
+            //     { row: 1, column: 3 },
+            //     { row: 1, column: 4 },
+            //     { row: 1, column: 5 },
+            //     { row: 1, column: 6 },
+            //     { row: 1, column: 7 },
+            //     { row: 1, column: 8 },
+            //     { row: 2, column: 0 },
+            //     { row: 2, column: 1 },
+            //     { row: 2, column: 2 },
+            //     { row: 2, column: 3 },
+            //     { row: 2, column: 4 },
+            //     { row: 2, column: 5 },
+            //     { row: 2, column: 6 },
+            //     { row: 2, column: 7 },
+            //     { row: 2, column: 8 },
+            // ]
+            // We have access to availableCoordinates bc of the 'extends'
 
+            const coordinates = player.availableCoordinates.call(Screen, 0, 3);
             expect((player.checkForInclusion(input, coordinates))).to.equal(true);
         });
 
@@ -150,37 +170,37 @@ describe('Player class', function () {
 
             let isValidSpy, formatInputSpy, checkForInclusionSpy;
 
-            beforeEach(function () {
+            before(function () {
                 isValidSpy = chai.spy.on(player, 'isValid');
                 formatInputSpy = chai.spy.on(player, 'formatInput');
                 checkForInclusionSpy = chai.spy.on(player, 'checkForInclusion');
             });
 
-            afterEach(function () {
+            after(function () {
                 chai.spy.restore(isValidSpy);
                 chai.spy.restore(formatInputSpy);
                 chai.spy.restore(checkForInclusionSpy);
             });
 
             it('it should return a Promise', async function () {
-                const actual = await player.askForInput(player.listOfCoordinates());
+                const actual = await player.askForInput(player.listOfCoordinates.call(Screen));
                 return expect(actual).to.be.instanceOf(Object);
             });
 
             it('should call isValid', async function () {
-                const input = player.listOfCoordinates();
+                const input = player.listOfCoordinates.call(Screen);
                 await player.askForInput(input);
                 return expect(isValidSpy).to.have.been.called;
             });
 
             it('should call formatInput', async function () {
-                const input = player.listOfCoordinates();
+                const input = player.listOfCoordinates.call(Screen);
                 await player.askForInput(input);
                 return expect(formatInputSpy).to.have.been.called;
             });
 
             it('should call checkForInclusion', async function () {
-                const input = player.listOfCoordinates();
+                const input = player.listOfCoordinates.call(Screen);
                 await player.askForInput(input);
                 return expect(checkForInclusionSpy).to.have.been.called;
             });
@@ -188,7 +208,7 @@ describe('Player class', function () {
             it("should return the player's input", async function () {
                 const input = await player.askForInput();
                 expect(input).to.be.a('object');
-                return expect(player.listOfCoordinates()).that.deep.include(input);
+                return expect(player.listOfCoordinates.call(Screen)).that.deep.include(input);
             });
 
         });

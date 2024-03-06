@@ -1,8 +1,11 @@
 const readline = require('readline');
+const Board = require('./board');
+const { Screen } = require('./screen');
 
-class Player {
-    constructor(object) {
-        this.board = object;
+class Player extends Board {
+    constructor(n) {
+        // this.board = object;
+        super(n);
     }
 
     isValid(input) {
@@ -32,9 +35,9 @@ class Player {
 
         for(let i = 0; i < 3; i++) {
 
-            for(let j = 0; j < this.board.actualGrid[0].length; j++) {
+            for(let j = 0; j < this.actualGrid[0].length; j++) {
 
-                if(this.board.actualGrid[i][j] === ' ' || this.board.actualGrid[i][j] === 'S') coordinates.push({ row: i, column: j });
+                if(this.actualGrid[i][j] === ' ' || this.actualGrid[i][j] === 'S') coordinates.push({ row: i, column: j });
             }
 
         }
@@ -42,7 +45,7 @@ class Player {
         return coordinates;
     }
 
-    checkForInclusion(input, choices) {
+    checkForInclusion(input, choices) { // Use destructuring
 
         for(let i = 0; i < choices.length; i++) {
             const choice = choices[i];
@@ -67,7 +70,7 @@ class Player {
                 rl.question('Enter your coordinate: ', (strInput) => {
                     const input = this.formatInput(strInput);
 
-                    if(this.checkForInclusion(input, this.listOfCoordinates())) {
+                    if(this.checkForInclusion(input, this.listOfCoordinates.call(Screen))) {
                         rl.close();
                         resolve(input);
                     } else {
