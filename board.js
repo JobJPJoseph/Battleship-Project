@@ -10,7 +10,10 @@ class Board {
         //     this.promptedGrid.push(new Array(n).fill('N'));
         // }
 
-        Screen.initialize(n);
+        if (!Screen.isInitialized) {
+            Screen.initialize(n);
+        }
+
     }
 
     availableCoordinates(min, max) {

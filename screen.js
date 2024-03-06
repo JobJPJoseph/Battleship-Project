@@ -5,6 +5,8 @@ class Screen {
 
     static promptedGrid = [];
 
+    static isInitialized = false;
+
     static initialize(n) {
 
         for (let i = 0; i < n; i++) {
@@ -15,6 +17,7 @@ class Screen {
         }
 
         Screen.addWater();
+        Screen.isInitialized = true;
     }
 
     static addWater() {

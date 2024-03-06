@@ -4,35 +4,72 @@ chai.use(spies);
 
 const expect = chai.expect;
 
+const { Screen } = require('../screen');
 const ComputerPlayer = require('../cpu');
 const Board = require('../board');
 
+
 describe('Computer Player', function () {
+    // Make sure to call Board on its own then call ComputerPlayer
 
-    // Note: The only way for ComputerPlayer to extends from Board is when the
-    // board.actualGrid was a class method not an instance method
+    it('should successfully create the Board class', function () {
+        expect(Board).to.exist;
+    });
 
-    it('should successfully create an instance of ComputerPlayer', function () {
-        const computerPlayer = new ComputerPlayer();
-        expect(computerPlayer).to.be.instanceOf(ComputerPlayer);
+    it('should successfully create the Computer Player class', function () {
+        expect(ComputerPlayer).to.exist;
     });
 
     let board;
     let computerPlayer;
 
-    beforeEach(function () {
+    // console.log(Screen.isInitialized);
+    // console.log(Screen.promptedGrid.length);
+    // board = new Board(9);
+    // console.log(Screen.isInitialized);
+    // console.log(Screen.promptedGrid.length);
+    // computer = new ComputerPlayer(9);
+    // console.log(Screen.isInitialized);
+    // console.log(Screen.promptedGrid.length);
+
+
+
+    before(function () {
         const size = 9;
         board = new Board(size);
         board.fillShips(0, 3);
         board.fillShips(6, 9);
-        computerPlayer = new ComputerPlayer(board);
+        computerPlayer = new ComputerPlayer(size);
     });
+
+    // it('should successfully create an instance of ComputerPlayer', function () {
+    //     const computerPlayer = new ComputerPlayer();
+    //     expect(computerPlayer).to.be.instanceOf(ComputerPlayer);
+    //     expect(computerPlayer).to.be.instanceOf(Board);
+    // });
+
+    // let board;
+    // let computerPlayer;
+
+    // before(function () {
+    //     const size = 9;
+    //     // board = new Board(size);
+    //     // board.fillShips(0, 3);
+    //     // board.fillShips(6, 9);
+    //     // computerPlayer = new ComputerPlayer(board);
+    //     computerPlayer = new ComputerPlayer(size);
+    // });
+
 
     describe('Constructor', function () {
 
-        it('should accept an argument the represnt an instance of the Board class', function () {
-            expect(computerPlayer.board, 'should be an object').to.be.a('object');
-            expect(computerPlayer.board, 'should be an instance of Board').to.be.instanceOf(Board);
+        // it('should accept an argument the represnt an instance of the Board class', function () {
+        //     expect(computerPlayer.board, 'should be an object').to.be.a('object');
+        //     expect(computerPlayer.board, 'should be an instance of Board').to.be.instanceOf(Board);
+        // });
+
+        it('should have the ComputerPlayer also be an instance of the Board class', function () {
+            expect(computerPlayer).to.be.instanceOf(Board);
         });
 
     });
@@ -42,7 +79,8 @@ describe('Computer Player', function () {
         // This will be called by getValidPosition
         // board.getValidPosition(6, 9);
         it("should return a array of objects that represent coordinates of player's ships locations", function () {
-            const expected = computerPlayer.getPlayerShips(6, 9);
+            // const expected = computerPlayer.getPlayerShips(6, 9);
+            const expected = computerPlayer.getPlayerShips.call(Screen);
             expect(expected).to.be.a('array');
             expect(expected.length).to.equal(10);
 
@@ -100,7 +138,7 @@ describe('Computer Player', function () {
 
         it("should return a coordinate that represents a player's ship coordinate", function () { // check this
             const expected = computerPlayer.getRandomPlayerShip();
-            expect(computerPlayer.getPlayerShips()).to.deep.include(expected);
+            expect(computerPlayer.getPlayerShips.call(Screen)).to.deep.include(expected);
         });
 
     });
@@ -118,7 +156,8 @@ describe('Computer Player', function () {
 
         it('should return a random coordinate from computer.board.availableCoordinates', function () {
             const expected = computerPlayer.getRandomAvailablePosition();
-            expect(computerPlayer.board.availableCoordinates(6, 9)).to.deep.include(expected);
+            // expect(computerPlayer.board.availableCoordinates(6, 9)).to.deep.include(expected);
+            expect(computerPlayer.availableCoordinates.call(Screen, 6, 9)).to.deep.include(expected);
         });
 
     });
